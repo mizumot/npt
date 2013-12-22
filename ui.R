@@ -52,18 +52,23 @@ mainPanel(
             br(),
 
             h3("Box plots with individual data points"),
+            downloadButton('downloadBoxPlot', 'Download the plot as pdf'),
             plotOutput("boxPlot", width="80%"),
 
             h3("Test result"),
             verbatimTextOutput("test.out"),
 
-            br()
+            br(),
+            br(),
+
+            strong('R session info'),
+            verbatimTextOutput("info.out")
 
             ),
 
 
 
-    tabPanel("Input Samples",
+    tabPanel("Input Examples",
 
 p('Note: Input values must be separated by tabs. Copy and paste from Excel/Numbers.'),
 
@@ -104,6 +109,13 @@ br()
             p('This web application is developed with',
             a("Shiny.", href="http://www.rstudio.com/shiny/", target="_blank"),
             ''),
+
+            br(),
+
+            strong('List of Packages Used'), br(),
+            code('library(shiny)'),br(),
+            code('library(shinyAce)'),br(),
+            code('library(psych)'),br(),
 
             br(),
 
