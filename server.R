@@ -116,17 +116,15 @@ shinyServer(function(input, output) {
     
     
     
-    
-    output$boxPlot <- renderPlot({
+    makeboxPlot <- function(){
+        dat <- read.csv(text=input$text, sep="\t")
         
-            dat <- read.csv(text=input$text, sep="\t")
         
-
         if (input$type == "mannwhitney") {
-
+            
             boxplot(dat[,2] ~ dat[,1], las=1)
             stripchart(dat[,2] ~ dat[,1], pch = 16, vert = TRUE,  add = TRUE)
-        
+            
         }
         
         
@@ -134,7 +132,7 @@ shinyServer(function(input, output) {
             
             boxplot(dat, las=1)
             stripchart(dat, pch = 16, vert = TRUE,  add = TRUE)
-
+            
         }
         
         if (input$type == "kruskalwallis") {
@@ -150,7 +148,11 @@ shinyServer(function(input, output) {
             stripchart(dat, pch = 16, vert = TRUE,  add = TRUE)
             
         }
+    }
 
+
+    output$boxPlot <- renderPlot({
+        print(makeboxPlot())
     })
     
     
@@ -443,11 +445,20 @@ shinyServer(function(input, output) {
             
         }
     })
+    
 
 
 
-
-
+    info <- reactive({
+        info1 <- paste("This analysis was conducted with ", strsplit(R.version$version.string, " \\(")[[1]][1], ".", sep = "")# バージョン情報
+        info2 <- paste("It was executed on ", date(), ".", sep = "")# 実行日時
+        cat(sprintf(info1), "\n")
+        cat(sprintf(info2), "\n")
+    })
+    
+    output$info.out <- renderPrint({
+        info()
+    })
 
     
     
@@ -464,6 +475,17 @@ shinyServer(function(input, output) {
     output$test.out <- renderPrint({
         test()
     })
+    
+    output$downloadBoxPlot <- downloadHandler(
+    filename = function() {
+        paste('Boxplot-', Sys.Date(), '.pdf', sep='')
+    },
+    content = function(FILE=NULL) {
+        pdf(file=FILE)
+		print(makeboxPlot())
+		dev.off()
+	})  
+
 
 
 })
