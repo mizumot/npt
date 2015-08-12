@@ -1,7 +1,5 @@
 library(shiny)
 library(shinyAce)
-library(psych)
-library(beeswarm)
 
 
 
@@ -37,7 +35,7 @@ tags$div("Loading...",id="loadmessage")),
 
 
     mainPanel(
-        tabsetPanel(
+        tabsetPanel(position = "left", 
 
 
 # Mann-Whitney U-test (Comparing two independent conditions)
