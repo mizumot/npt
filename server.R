@@ -208,7 +208,7 @@ shinyServer(function(input, output) {
 
             pval <- result$p.value
             z <- qnorm(1-(pval/2))
-            r1 <- z/sqrt(length(x*2))
+            r1 <- z/sqrt(length(x)*2)
             esR.CI1 <- r.con(r1, length(x*2), p =.95, twotailed=TRUE)
             #r2 <- z/sqrt(length(x)-sum((y-x==0)))
             #esR.CI2 <- round(r.con(r2, length(x)-sum((y-x==0)), p =.95, twotailed=TRUE), 3)
@@ -549,7 +549,7 @@ shinyServer(function(input, output) {
                 res <- wilcox.test(x[,i], x[,j], paired=TRUE, correct=FALSE)
                 pval <- res$p.value
                 z <- qnorm(1-(pval/2))
-                r1 <- z/sqrt(length(x[,i]*2))
+                r1 <- z/sqrt(length(x[,i])*2)
                 esR.CI1 <- r.con(r1, length(x[,i]*2), p =.95, twotailed=TRUE)
                 
                 #r2 <- z/sqrt(length(x[,1])-sum((x[,2]-x[,1])==0))
