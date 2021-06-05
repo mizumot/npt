@@ -3,10 +3,11 @@ library(shinyAce)
 
 
 
+
 shinyUI(bootstrapPage(
 
 
-    headerPanel("Non-parametric Tests"),
+    headerPanel("Relative Weight Analysis"),
 
 
 ########## loading message #######################################
@@ -28,191 +29,115 @@ z-index: 105;
 ")),
 
 conditionalPanel(condition="$('html').hasClass('shiny-busy')",
-tags$div("Loading...",id="loadmessage")),
+tags$div("Wait for a moment...",id="loadmessage")),
 
 ###################################################################
 
 
 
     mainPanel(
-        tabsetPanel(position = "left", 
+        tabsetPanel(
 
 
-# Mann-Whitney U-test (Comparing two independent conditions)
+# Raw Data
 
-        tabPanel("Mann-Whitney U-test",
+        tabPanel("Raw Data",
 
-                h2("Mann-Whitney U-test"),
-
-                h4("Comparing two independent conditions"),
+                h2("Using Raw Data"),
 
                 p('Note: Input values must be separated by tabs. Copy and paste from Excel/Numbers.'),
 
-                p(HTML("<b><div style='background-color:#FADDF2;border:1px solid black;'>Your data needs to have the header (variable names) in the first row.</div></b>")),
+                p(HTML("<b><div style='background-color:#FADDF2;border:1px solid black;'>
+                    Wait patiently. It will take a minute or so until you get to see the result.<br>
+                    Please make sure that your data includes the header (variable names) in the first row.<br>
+                    The criterion (dependent) variable should be placed in the first column.</b></div>")),
 
-                aceEditor("text1", value="Class\tScore\n1\t78\n1\t70\n1\t73\n1\t86\n1\t65\n1\t74\n1\t59\n1\t78\n1\t86\n1\t56\n1\t4\n1\t66\n1\t100\n1\t53\n1\t57\n2\t42\n2\t3\n2\t51\n2\t21\n2\t45\n2\t100\n2\t39\n2\t57\n2\t32\n2\t46\n2\t26\n2\t54\n2\t28\n2\t42\n2\t30", mode="r", theme="cobalt"),
-
-                br(),
-
-                h3("Basic statistics"),
-                verbatimTextOutput("MWU.bs.out"),
+                aceEditor("text", value="Proficiency\tVocabulary\tGrammar\tPronunciation\n275\t21\t35\t53\n175\t21\t29\t0\n535\t37\t56\t60\n10\t3\t4\t55\n385\t14\t36\t62\n655\t44\t47\t62\n335\t9\t2\t77\n630\t3\t46\t81\n605\t34\t44\t67\n530\t18\t35\t82\n645\t42\t45\t53\n440\t25\t35\t59\n750\t24\t57\t79\n610\t28\t52\t73\n830\t55\t44\t66\n600\t22\t50\t44\n760\t63\t30\t73\n300\t14\t33\t77\n340\t22\t0\t59\n585\t25\t73\t52\n475\t34\t32\t74\n215\t10\t32\t73\n150\t1\t31\t71\n655\t39\t17\t56\n710\t10\t73\t68\n360\t34\t12\t62\n350\t9\t37\t77\n540\t27\t55\t82\n710\t36\t52\t51\n310\t10\t19\t87\n655\t41\t53\t74\n500\t32\t59\t55\n115\t19\t29\t63\n615\t32\t58\t88\n400\t11\t16\t57\n440\t27\t28\t46\n555\t24\t30\t71\n625\t32\t51\t80\n345\t22\t31\t45\n670\t44\t7\t63\n565\t47\t32\t62\n595\t35\t43\t63\n585\t67\t61\t75\n415\t5\t40\t58\n620\t27\t80\t66\n175\t6\t64\t23\n790\t53\t64\t66\n450\t38\t18\t61\n750\t39\t41\t70\n665\t48\t62\t80\n700\t11\t82\t91\n585\t34\t53\t81\n380\t19\t48\t76\n680\t61\t50\t86\n315\t41\t45\t68\n330\t15\t32\t67\n645\t42\t56\t66\n180\t11\t4\t34\n835\t79\t64\t45\n550\t40\t45\t70\n340\t23\t40\t62\n805\t45\t85\t87\n615\t42\t92\t56\n815\t62\t44\t71\n610\t10\t59\t53\n720\t58\t55\t50\n525\t45\t43\t55\n575\t48\t49\t74\n570\t6\t43\t62\n420\t22\t22\t73\n395\t24\t44\t73\n280\t35\t33\t86\n945\t66\t56\t68\n880\t60\t73\t72\n290\t8\t13\t48\n420\t12\t2\t66\n950\t50\t59\t67\n435\t27\t46\t79\n605\t18\t60\t78\n170\t1\t47\t12\n940\t60\t70\t63\n260\t11\t35\t73\n335\t7\t34\t78\n270\t9\t60\t45\n670\t45\t39\t70\n860\t59\t100\t72\n835\t68\t36\t73\n850\t61\t58\t68\n405\t9\t55\t53\n500\t25\t34\t65\n490\t20\t32\t49\n515\t28\t72\t64\n950\t89\t47\t63\n425\t4\t37\t73\n430\t12\t28\t73\n695\t36\t55\t64\n150\t11\t28\t80\n355\t12\t41\t81\n785\t39\t62\t74\n250\t31\t26\t61\n560\t12\t45\t75\n425\t6\t14\t60\n455\t39\t20\t65\n815\t59\t62\t92\n715\t51\t85\t74\n270\t17\t44\t65\n395\t8\t30\t78\n210\t8\t33\t20\n705\t30\t50\t89\n250\t23\t1\t69\n665\t45\t54\t69\n440\t26\t29\t70\n805\t55\t74\t97\n180\t9\t21\t82\n795\t77\t53\t66\n605\t29\t47\t76\n280\t10\t19\t69\n605\t8\t57\t75\n250\t5\t11\t33\n525\t33\t63\t58\n570\t43\t29\t59\n535\t2\t64\t66\n425\t39\t12\t71\n330\t18\t82\t70\n555\t10\t43\t72\n550\t34\t29\t71\n870\t51\t59\t62\n550\t18\t17\t45\n840\t49\t66\t84\n665\t67\t41\t54\n210\t18\t31\t84\n405\t13\t41\t91\n585\t22\t31\t92\n520\t17\t67\t75\n585\t35\t55\t57\n390\t21\t31\t59\n830\t69\t37\t88\n400\t10\t23\t72\n240\t11\t31\t38\n275\t12\t29\t64\n340\t18\t51\t61\n105\t21\t15\t34\n615\t8\t39\t65\n175\t14\t33\t38\n425\t25\t56\t72\n275\t10\t35\t60\n475\t27\t28\t48\n765\t32\t53\t80\n810\t51\t84\t50\n825\t51\t64\t73\n795\t35\t54\t68\n585\t37\t56\t64\n610\t26\t47\t81\n595\t49\t28\t72\n490\t5\t75\t65\n880\t78\t49\t97\n605\t4\t59\t57\n765\t35\t31\t72\n650\t52\t35\t57\n430\t23\t50\t78\n625\t26\t52\t74\n700\t13\t61\t77\n585\t25\t59\t70\n895\t100\t70\t100\n190\t1\t57\t68\n460\t25\t34\t70\n680\t68\t17\t75\n915\t69\t69\t66\n120\t1\t20\t84\n150\t29\t30\t57\n265\t12\t37\t55\n275\t0\t3\t62\n935\t67\t58\t80\n700\t25\t51\t69\n750\t48\t52\t70\n430\t45\t19\t61\n240\t8\t6\t74\n660\t35\t66\t69\n405\t10\t40\t79\n950\t57\t65\t82\n660\t18\t37\t74\n425\t36\t15\t64\n615\t32\t81\t69\n355\t23\t24\t69\n550\t48\t21\t77\n635\t32\t73\t78\n190\t28\t29\t16\n170\t32\t16\t54\n125\t6\t41\t78\n410\t6\t31\t62\n715\t68\t44\t85\n990\t88\t55\t49\n785\t58\t40\t75\n320\t12\t51\t65\n890\t78\t53\t47\n565\t38\t38\t66\n525\t11\t73\t55\n730\t11\t67\t73\n750\t53\t49\t74\n565\t69\t51\t79", mode="r", theme="cobalt"),
 
                 br(),
 
-                h3("Ranks"),
-                verbatimTextOutput("MWU.ranking.out"),
+                h3("Basic Statistics"),
+                verbatimTextOutput("textarea.out"),
 
                 br(),
 
-                h3("Box plots with individual data points"),
-                plotOutput("MWU.boxPlot", width="80%"),
+                h3("Correlation"),
+                plotOutput("corPlot"),
 
-                h3("Test result"),
-                verbatimTextOutput("MWU.test.out"),
+                br(),
+
+                h3("Regression Analysis"),
+                verbatimTextOutput("reg.out"),
+
+                br(),
+
+                h3("Relative Weight Analysis"),
+                verbatimTextOutput("rwa.out"),
+                
+                br(),
+
+                h3("Relative Weight Plot with 95% CI"),
+                plotOutput("confPlot"),
+
+                br(),
+
+                h3("Variable Importance Plot (Random Forest)"),
+                plotOutput("randomForestPlot"),
 
                 br(),
                 br(),
 
                 strong('R session info'),
-                verbatimTextOutput("MWU.info.out")
+                verbatimTextOutput("info1.out")
 
         ),
 
 
 
 
+# Correlation Matrix
 
+        tabPanel("Correlation Matrix",
 
-# Wilcoxon signed-rank test (Comparing two related conditions)
-
-        tabPanel("Wilcoxon signed-rank test",
-
-                h2("Wilcoxon signed-rank test"),
-
-                h4("Comparing two related conditions"),
+                h2("Using Correlation Matrix"),
 
                 p('Note: Input values must be separated by tabs. Copy and paste from Excel/Numbers.'),
 
-                p(HTML("<b><div style='background-color:#FADDF2;border:1px solid black;'>Your data needs to have the header (variable names) in the first row.</div></b>")),
+                p(HTML("<b><div style='background-color:#FADDF2;border:1px solid black;'>Please make sure that your data includes the header (variable names) in the first row.<br>
+                    The criterion (dependent) variable should be placed in the first column.</b></div>")),
 
-                aceEditor("text2", value="First\tSecond\n78\t42\n6\t3\n73\t51\n86\t21\n45\t45\n74\t98\n59\t59\n78\t57\n86\t84\n56\t46\n4\t26\n66\t54\n100\t28\n53\t42\n57\t30", mode="r", theme="cobalt"),
-
-                br(),
-
-                h3("Basic statistics"),
-                verbatimTextOutput("WSR.bs.out"),
+                aceEditor("text2",
+                          value="\tScore\tWordcount\tCLI\tCommas\tStopwords\tLinking\tWordsSentence\nScore\t1\t0.67\t0.41\t0.02\t-0.35\t0.35\t0.45\nWordcount\t0.67\t1\t0.18\t0.05\t-0.28\t0.24\t0.31\nCLI\t0.41\t0.18\t1\t0.21\t-0.32\t0.34\t0.43\nCommas\t0.02\t0.05\t0.21\t1\t-0.03\t0.22\t0.47\nStopwords\t-0.35\t-0.28\t-0.32\t-0.03\t1\t-0.13\t-0.22\nLinking\t0.35\t0.24\t0.34\t0.22\t-0.13\t1\t0.33\nWordsSentence\t0.45\t0.31\t0.43\t0.47\t-0.22\t0.33\t1", mode="r", theme="cobalt"),
 
                 br(),
 
-                h3("Ranks"),
-                verbatimTextOutput("WSR.ranking.out"),
+                numericInput("n", " Sample Size", 200),
+
+                h3("Check the Input Correlation Matrix"),
+                verbatimTextOutput("inputData.out"),
 
                 br(),
 
-                h3("Box plots with individual data points"),
-                plotOutput("WSR.boxPlot", width="80%"),
+                h3("Regression Analysis"),
+                verbatimTextOutput("mra2.result.out"),
 
-                h3("Test result"),
-                verbatimTextOutput("WSR.test.out"),
+                br(),
+
+                h3("Relative Weight Analysis"),
+                verbatimTextOutput("wra.cor.out"),
+
+                br(),
+
+                h3("Relative Weight Plot"),
+                plotOutput("imPlot"),
 
                 br(),
                 br(),
 
                 strong('R session info'),
-                verbatimTextOutput("WSR.info.out")
+                verbatimTextOutput("info2.out")
 
         ),
-
-
-
-
-
-
-# Kruskal-Wallis test (Differences between several independent groups)
-
-        tabPanel("Kruskal-Wallis test",
-
-                h2("Kruskal-Wallis test"),
-
-                h4("Differences between several independent groups"),
-
-                p('Note: Input values must be separated by tabs. Copy and paste from Excel/Numbers.'),
-
-                p(HTML("<b><div style='background-color:#FADDF2;border:1px solid black;'>Your data needs to have the header (variable names) in the first row.</div></b>")),
-
-                aceEditor("text3", value="Class\tScore\n1\t78\n1\t70\n1\t73\n1\t86\n1\t65\n1\t74\n1\t59\n1\t78\n1\t86\n1\t56\n1\t4\n1\t66\n1\t100\n1\t53\n1\t57\n2\t42\n2\t3\n2\t51\n2\t21\n2\t45\n2\t100\n2\t39\n2\t57\n2\t32\n2\t46\n2\t26\n2\t54\n2\t28\n2\t42\n2\t30\n3\t2\n3\t42\n3\t86\n3\t85\n3\t53\n3\t90\n3\t1\n3\t69\n3\t53\n3\t74\n3\t80\n3\t66\n3\t100\n3\t70\n3\t37",mode="r", theme="cobalt"),
-
-                br(),
-
-                h3("Basic statistics"),
-                verbatimTextOutput("KW.bs.out"),
-
-                br(),
-
-                h3("Ranks"),
-                verbatimTextOutput("KW.ranking.out"),
-
-                br(),
-
-                h3("Box plots with individual data points"),
-                plotOutput("KW.boxPlot", width="80%"),
-
-                h3("Test result"),
-                verbatimTextOutput("KW.test.out"),
-
-                br(),
-                br(),
-
-                strong('R session info'),
-                verbatimTextOutput("KW.info.out")
-
-        ),
-
-
-
-
-
-
-# Friedman test (Differences between several related groups)
-
-        tabPanel("Friedman test",
-
-                h2("Friedman test"),
-
-                h4("Differences between several related groups"),
-
-                p('Note: Input values must be separated by tabs. Copy and paste from Excel/Numbers.'),
-
-                p(HTML("<b><div style='background-color:#FADDF2;border:1px solid black;'>Your data needs to have the header (variable names) in the first row.</div></b>")),
-
-                aceEditor("text4", value="First\tSecond\tThird\n78\t42\t42\n6\t3\t6\n73\t51\t86\n86\t21\t85\n45\t45\t53\n74\t98\t90\n59\t59\t1\n78\t57\t69\n86\t84\t53\n56\t46\t74\n4\t26\t80\n66\t54\t66\n100\t28\t100\n53\t42\t70\n57\t30\t37", mode="r", theme="cobalt"),
-
-                br(),
-
-                h3("Basic statistics"),
-                verbatimTextOutput("Friedman.bs.out"),
-
-                br(),
-
-                h3("Ranks"),
-                verbatimTextOutput("Friedman.ranking.out"),
-
-                br(),
-
-                h3("Box plots with individual data points"),
-                plotOutput("Friedman.boxPlot", width="80%"),
-
-                h3("Test result"),
-                verbatimTextOutput("Friedman.test.out"),
-
-                br(),
-                br(),
-
-                strong('R session info'),
-                verbatimTextOutput("Friedman.info.out")
-
-        ),
-
 
 
 
@@ -231,32 +156,39 @@ tags$div("Loading...",id="loadmessage")),
             code('library(shiny)'),br(),
             code('library(shinyAce)'),br(),
             code('library(psych)'),br(),
-            code('library(beeswarm)'),br(),
+            code('library(car)'),br(),
+            code('library(rpsychi)'),br(),
+            code('library(boot)'),br(),
+            code('library(plyr)'),br(),
+            code('library(ggplot2)'),br(),
+            code('library(randomForest)'),br(),
 
             br(),
 
             strong('Code'),
             p('Source code for this application is based on',
-            a('"The handbook of Research in Foreign Language Learning and Teaching" (Takeuchi & Mizumoto, 2012).', href='http://mizumot.com/handbook/', target="_blank")),
+            a('"RWA Web" (Dr. Scott Tonidandel)', href='https://www.scotttonidandel.com/shiny-apps', target="_blank")),
+            p('and',
+            a('"The handbook of Research in Foreign Language Learning and Teaching" (Takeuchi & Mizumoto, 2012).', href='https://mizumot.com/handbook/', target="_blank")),
 
             p('The code for this web application is available at',
-            a('GitHub.', href='https://github.com/mizumot/npt', target="_blank")),
+            a('GitHub.', href='https://github.com/mizumot/rwa', target="_blank")),
 
             p('If you want to run this code on your computer (in a local R session), run the code below:',
             br(),
             code('library(shiny)'),br(),
-            code('runGitHub("npt","mizumot")')
+            code('runGitHub("rwa","mizumot")')
             ),
 
             br(),
 
             strong('Citation in Publications'),
-                p('Mizumoto, A. (2015). Langtest (Version 1.0) [Web application]. Retrieved from http://langtest.jp'),
+                p('Mizumoto, A. (2015). Langtest (Version 1.0) [Web application]. http://langtest.jp'),
 
             br(),
 
             strong('Article'),
-                p('Mizumoto, A., & Plonsky, L. (2015).', a("R as a lingua franca: Advantages of using R for quantitative research in applied linguistics.", href='http://applij.oxfordjournals.org/content/early/2015/06/24/applin.amv025.abstract', target="_blank"), em('Applied Linguistics,'), 'Advance online publication. doi:10.1093/applin/amv025'),
+                p('Mizumoto, A., & Plonsky, L. (2016).', a("R as a lingua franca: Advantages of using R for quantitative research in applied linguistics.", href='https://doi.org/10.1093/applin/amv025', target="_blank"), em('Applied Linguistics,'), '37(2), 284–291. https://doi.org/10.1093/applin/amv025'),
 
             br(),
 
@@ -265,15 +197,11 @@ tags$div("Loading...",id="loadmessage")),
             a("A Guide to Doing Statistics in Second Language Research Using R,", href="http://cw.routledge.com/textbooks/9780805861853/guide-to-R.asp", target="_blank"),
             'written by Dr. Jenifer Larson-Hall.'),
 
-            p('Also, if you are a cool Mac user and want to use R with GUI,',
-            a("MacR", href="https://sites.google.com/site/casualmacr/home", target="_blank"),
-            'is defenitely the way to go!'),
-
             br(),
 
             strong('Author'),
             p(a("Atsushi MIZUMOTO,", href="http://mizumot.com", target="_blank"),' Ph.D.',br(),
-            'Associate Professor of Applied Linguistics',br(),
+            'Professor of Applied Linguistics',br(),
             'Faculty of Foreign Language Studies /',br(),
             'Graduate School of Foreign Language Education and Research,',br(),
             'Kansai University, Osaka, Japan'),
